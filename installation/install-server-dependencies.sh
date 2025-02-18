@@ -35,6 +35,8 @@ if [[ -z "$LETS_ENCRYPT_EMAIL" || -z "$DOMAIN" ]]; then
   usage
 fi
 
+USER_HOME=$(eval echo ~$SUDO_USER)
+
 log_message() {
   local color="$1"
   local message="$2"
@@ -65,17 +67,18 @@ sudo apt install -y certbot python3-certbot-nginx || { log_message "\033[0;31m" 
 log_message "\033[1;33m" "Enabling Nginx to start on system boot"
 sudo systemctl enable nginx || { log_message "\033[0;31m" "Error: Enabling Nginx to start on boot failed"; exit 1; }
 
-log_message "\033[1;33m" "Creating /services directory if it does not exist"
-mkdir -p ~/services || { log_message "\033[0;31m" "Error: Failed to create /services directory"; exit 1; }
 
-log_message "\033[1;33m" "Changing directory to /services"
-cd ~/services || { log_message "\033[0;31m" "Error: Failed to enter /services directory"; exit 1; }
+log_message "\033[1;33m" "Creating $USER_HOME/services directory if it does not exist"
+mkdir -p "$USER_HOME/services" || { log_message "\033[0;31m" "Error: Failed to create $USER_HOME/services directory"; exit 1; }
+
+log_message "\033[1;33m" "Changing directory to $USER_HOME/services"
+cd "$USER_HOME/services" || { log_message "\033[0;31m" "Error: Failed to enter $USER_HOME/services directory"; exit 1; }
 
 log_message "\033[1;33m" "Cloning repository: Servant-Cities/IDP"
 git clone https://github.com/Servant-Cities/IDP.git || { log_message "\033[0;31m" "Error: Failed to clone repository"; exit 1; }
 
 log_message "\033[1;33m" "Entering repository folder: IDP"
-cd ~/services/IDP || { log_message "\033[0;31m" "Error: Failed to enter IDP directory"; exit 1; }
+cd "$USER_HOME/services/IDP" || { log_message "\033[0;31m" "Error: Failed to enter IDP directory"; exit 1; }
 
 log_message "\033[1;33m" "Giving execution rights to all files in ./installation"
 chmod +x ./installation/* || { log_message "\033[0;31m" "Error: Failed to set execution rights on installation files"; exit 1; }
