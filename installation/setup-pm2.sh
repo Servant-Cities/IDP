@@ -24,7 +24,7 @@ module.exports = {
       env: {
         NODE_ENV: "production",
         PORT: 2024,
-        HOME_CWD: "$USER_HOME"
+        REPOSITORIES_PATH: "$USER_HOME/repositories"
       },
       watch: false,
       instances: 1,

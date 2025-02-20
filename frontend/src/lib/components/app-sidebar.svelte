@@ -52,6 +52,6 @@
 		</Sidebar.Group>
 	</Sidebar.Content>
 	<Sidebar.Footer class="bg-white dark:bg-black">
-		<ToggleMode />
+		<ToggleMode/>
 	</Sidebar.Footer>
 </Sidebar.Root>

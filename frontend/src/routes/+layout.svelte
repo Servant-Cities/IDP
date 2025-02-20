@@ -10,12 +10,10 @@
 <ModeWatcher />
 <Sidebar.Provider>
 	<AppSidebar />
-	<Sidebar.Inset>
-		<main>
-			<Sidebar.Trigger class="fixed" />
-			<div class="p-8">
-				{@render children?.()}
-			</div>
-		</main>
-	</Sidebar.Inset>
+	<main>
+		<Sidebar.Trigger class="fixed" />
+		<div class="p-8">
+			{@render children?.()}
+		</div>
+	</main>
 </Sidebar.Provider>

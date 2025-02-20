@@ -5,7 +5,7 @@ import { execSync } from 'child_process';
 import { env } from '$env/dynamic/private';
 import type { PageLoad } from './$types';
 
-const { HOME_CWD } = env;
+const { REPOSITORIES_PATH } = env;
 
 interface GitRepositoryInfo {
 	name: string;
@@ -13,6 +13,7 @@ interface GitRepositoryInfo {
 	lastCommitMessage: string;
 	lastCommitDate: string;
 	remoteUrl: string | null;
+	activeBranch: string;
 }
 
 function getGitRepositoryInfo(repoPath: string): GitRepositoryInfo | null {
@@ -34,7 +35,10 @@ function getGitRepositoryInfo(repoPath: string): GitRepositoryInfo | null {
 			remoteUrl = null;
 		}
 
-		return { name, lastCommitHash, lastCommitMessage, lastCommitDate, remoteUrl };
+		// Fetch the active branch name
+		const activeBranch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: repoPath }).toString().trim();
+
+		return { name, lastCommitHash, lastCommitMessage, lastCommitDate, remoteUrl, activeBranch };
 	} catch {
 		return null;
 	}
@@ -42,20 +46,17 @@ function getGitRepositoryInfo(repoPath: string): GitRepositoryInfo | null {
 
 export const load: PageLoad = () => {
 	try {
-		const repoPath = path.join(HOME_CWD, 'repositories');
-		console.log(repoPath);
-
-		if (!fs.existsSync(repoPath)) {
-			return { data: [] };
+		if (!fs.existsSync(REPOSITORIES_PATH)) {
+			throw error(404, `Failed they are no repositories in ${REPOSITORIES_PATH}`)
 		}
 
-		const repositories = fs
-			.readdirSync(repoPath)
-			.filter((file) => fs.statSync(path.join(repoPath, file)).isDirectory())
-			.map((dir) => getGitRepositoryInfo(path.join(repoPath, dir)))
-			.filter((repo): repo is GitRepositoryInfo => repo !== null); // Remove null values
+		const repositories: Array<GitRepositoryInfo> = fs
+			.readdirSync(REPOSITORIES_PATH)
+			.filter((file) => fs.statSync(path.join(REPOSITORIES_PATH, file)).isDirectory())
+			.map((dir) => getGitRepositoryInfo(path.join(REPOSITORIES_PATH, dir)))
+			.filter((repo): repo is GitRepositoryInfo => repo !== null);
 
-		return { data: repositories };
+		return { repositories };
 	} catch (err) {
 		throw error(500, 'Failed to read repositories');
 	}
