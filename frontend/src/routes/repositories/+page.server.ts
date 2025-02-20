@@ -9,7 +9,6 @@ const { HOME_CWD } = env;
 
 interface GitRepositoryInfo {
 	name: string;
-	path: string;
 	lastCommitHash: string;
 	lastCommitMessage: string;
 	lastCommitDate: string;
@@ -35,7 +34,7 @@ function getGitRepositoryInfo(repoPath: string): GitRepositoryInfo | null {
 			remoteUrl = null;
 		}
 
-		return { name, path: repoPath, lastCommitHash, lastCommitMessage, lastCommitDate, remoteUrl };
+		return { name, lastCommitHash, lastCommitMessage, lastCommitDate, remoteUrl };
 	} catch {
 		return null;
 	}

@@ -18,18 +18,20 @@
 			icon: Inbox
 		},
 		{
-			title: 'Services',
+			title: 'PM2 Services',
 			url: '/services',
 			icon: Settings
 		}
 	];
 </script>
 
-<Sidebar.Root>
-	<Sidebar.Content>
+<Sidebar.Root collapsible="icon">
+	<Sidebar.Content class="bg-white dark:bg-black">
 		<Sidebar.Group>
 			<Sidebar.GroupLabel>
-				<h1 class="text-lg">IDP Servant Cities</h1>
+				<h1 class="text-lg font-extrabold tracking-tight">
+					IDP Servant Cities
+				</h1>
 			</Sidebar.GroupLabel>
 			<Sidebar.GroupContent>
 				<Sidebar.Menu>
@@ -49,7 +51,7 @@
 			</Sidebar.GroupContent>
 		</Sidebar.Group>
 	</Sidebar.Content>
-	<Sidebar.Footer>
+	<Sidebar.Footer class="bg-white dark:bg-black">
 		<ToggleMode />
 	</Sidebar.Footer>
 </Sidebar.Root>
