@@ -67,11 +67,11 @@ sudo apt install -y certbot python3-certbot-nginx || { log_message "\033[0;31m" 
 log_message "\033[1;33m" "Enabling Nginx to start on system boot"
 sudo systemctl enable nginx || { log_message "\033[0;31m" "Error: Enabling Nginx to start on boot failed"; exit 1; }
 
-log_message "\033[1;33m" "Creating $USER_HOME/services directory if it does not exist"
-mkdir -p "$USER_HOME/services" || { log_message "\033[0;31m" "Error: Failed to create $USER_HOME/services directory"; exit 1; }
+log_message "\033[1;33m" "Creating $USER_HOME/repositories directory if it does not exist"
+mkdir -p "$USER_HOME/repositories" || { log_message "\033[0;31m" "Error: Failed to create $USER_HOME/repositories directory"; exit 1; }
 
-log_message "\033[1;33m" "Changing directory to $USER_HOME/services"
-cd "$USER_HOME/services" || { log_message "\033[0;31m" "Error: Failed to enter $USER_HOME/services directory"; exit 1; }
+log_message "\033[1;33m" "Changing directory to $USER_HOME/repositories"
+cd "$USER_HOME/repositories" || { log_message "\033[0;31m" "Error: Failed to enter $USER_HOME/repositories directory"; exit 1; }
 
 if [ -d "IDP" ]; then
   log_message "\033[1;33m" "IDP directory already exists, removing it..."

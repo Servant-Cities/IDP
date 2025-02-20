@@ -20,7 +20,7 @@ module.exports = {
     {
       name: "IDP Frontend",
       script: "./build/index.js",
-      cwd: "$USER_HOME/services/IDP/frontend",
+      cwd: "$USER_HOME/repositories/IDP/frontend",
       env: {
         NODE_ENV: "production",
         PORT: 2024

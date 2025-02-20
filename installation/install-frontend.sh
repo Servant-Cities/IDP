@@ -4,7 +4,7 @@
 USER_HOME=$(eval echo ~$SUDO_USER)
 
 # Define the target directory
-TARGET_DIR="$USER_HOME/services/IDP/frontend"
+TARGET_DIR="$USER_HOME/repositories/IDP/frontend"
 
 # Navigate to the target directory
 cd "$TARGET_DIR" || { echo "Directory $TARGET_DIR not found."; exit 1; }
