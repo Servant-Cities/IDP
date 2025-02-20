@@ -27,9 +27,23 @@ CERTBOT_CHALLENGE_DIR="/var/www/certbot"
 # Ensure Certbot challenge directory exists
 mkdir -p "$CERTBOT_CHALLENGE_DIR"
 
-# Request Let's Encrypt SSL certificate using Certbot (Nginx plugin)
+# Remove default Nginx config if it exists
+if [[ -f "$NGINX_CONF_DIR/default" ]]; then
+    echo "Removing default Nginx configuration..."
+    rm -f "$NGINX_CONF_DIR/default"
+fi
+
+if [[ -L "$NGINX_ENABLED_DIR/default" ]]; then
+    rm -f "$NGINX_ENABLED_DIR/default"
+fi
+
+# Stop Nginx temporarily to allow Certbot standalone challenge
+echo "Stopping Nginx to allow Certbot standalone challenge..."
+systemctl stop nginx
+
+# Obtain SSL certificate using Certbot standalone mode
 echo "Requesting SSL certificate for $DOMAIN from Let's Encrypt..."
-certbot --nginx -d "$DOMAIN" --agree-tos --email "$LETS_ENCRYPT_EMAIL" --non-interactive || {
+certbot certonly --standalone -d "$DOMAIN" --agree-tos --email "$LETS_ENCRYPT_EMAIL" --non-interactive || {
     echo "❌ Failed to obtain SSL certificate for $DOMAIN"
     exit 1
 }
@@ -79,6 +93,9 @@ fi
 
 # Create a new symbolic link
 ln -s "$CONFIG_FILE" "$NGINX_ENABLED_DIR/"
+
+echo "Starting Nginx..."
+systemctl start nginx
 
 # Test Nginx configuration before reloading
 if nginx -t; then
