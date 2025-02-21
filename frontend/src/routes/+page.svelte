@@ -10,15 +10,9 @@
 
 	let { data }: PageProps = $props();
 
-	function copyToClipboard(text: string) {
-		navigator.clipboard.writeText(text).then(() => {
-			alert(`Copied to clipboard: ${text}`);
-		});
-	}
-
-	function getSslBadgeClass(modifiedDate: string) {
+	function getSslDetails(modifiedDate: string) {
 		if (modifiedDate === 'NOT_FOUND') {
-			return 'bg-destructive';
+			return { class: '', lastModified: "Not Found", variant: 'destructive'};
 		}
 		const now = new Date();
 		const lastModified = new Date(modifiedDate);
@@ -26,9 +20,9 @@
 		const oneMonthInMillis = 30 * 24 * 60 * 60 * 1000;
 
 		if (timeDiff < oneMonthInMillis) {
-			return 'bg-green-400';
+			return { class: 'bg-yellow-400', lastModified: lastModified.toLocaleString(), variant: 'default'};
 		} else {
-			return 'bg-yellow-400';
+			return { class: 'bg-yellow-400', lastModified: lastModified.toLocaleString(), variant: 'default' };
 		}
 	}
 </script>
@@ -37,6 +31,7 @@
 {#if data.sites}
 	<div class="grid w-full gap-4 py-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
 		{#each data.sites as site}
+			{@const ssl = getSslDetails(site.sslCertificateLastModified)}
 			<Card.Root class="flex flex-col">
 				<Card.Header>
 					<Card.Title class="line-clamp-1 flex flex-row items-center justify-between gap-8">
@@ -51,10 +46,10 @@
 						CORS: {site.corsAllowed ? 'Allowed' : 'Not Allowed'}
 					</Badge>
 					<Badge
-						variant={site.sslCertificateLastModified === 'NOT_FOUND' ? 'destructive' : 'default'}
-						class={`mt-2 ${getSslBadgeClass(site.sslCertificateLastModified)}`}
+						variant={ssl.variant}
+						class={`mt-2 ${ssl.class}`}
 					>
-						SSL: {site.sslCertificateLastModified}
+						SSL: {ssl.lastModified}
 					</Badge>
 				</Card.Content>
 				<Card.Footer class="mt-auto flex justify-between gap-8 border-t p-4">

@@ -36,11 +36,14 @@
 					<Card.Description class="line-clamp-2 text-ellipsis">{repository.remoteUrl}</Card.Description>
 				</Card.Header>
 				<Card.Content class="mt-auto pb-2">
-					<h4 class="text-md inline line-clamp-2 text-ellipsis">
-						{#if parsed.type}<Badge variant="outline">{parsed.type}</Badge>{/if}
-						{#if parsed.scope}<Badge variant="outline">{parsed.scope}</Badge>{/if}
-						{parsed.message}
+					<h4 class="text-md inline-block max-w-full overflow-hidden">
+						<div class="line-clamp-2">
+							{#if parsed.type}<Badge variant="outline">{parsed.type}</Badge>{/if}
+							{#if parsed.scope}<Badge variant="outline">{parsed.scope}</Badge>{/if}
+							{parsed.message}
+						</div>
 					</h4>
+					
 					<div class="flex items-center gap-2 text-accent">
 						<p class="truncate text-xs text-muted-foreground">{repository.lastCommitHash}</p>
 						<button
