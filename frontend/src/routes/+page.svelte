@@ -20,9 +20,9 @@
 		const oneMonthInMillis = 30 * 24 * 60 * 60 * 1000;
 
 		if (timeDiff < oneMonthInMillis) {
-			return { class: 'bg-yellow-400', lastModified: lastModified.toLocaleString(), variant: 'default'};
+			return { class: 'bg-green-400', lastModified: lastModified.toLocaleString(), variant: 'default'};
 		} else {
-			return { class: 'bg-yellow-400', lastModified: lastModified.toLocaleString(), variant: 'default' };
+			return { class: 'bg-yellow-700', lastModified: lastModified.toLocaleString(), variant: 'default' };
 		}
 	}
 </script>
