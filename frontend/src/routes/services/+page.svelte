@@ -12,19 +12,14 @@
 		});
 	}
 
-	function getPortFromArgs(args: string[]): number | null {
-		const portArgIndex = args.indexOf('--port');
-		if (portArgIndex !== -1 && args[portArgIndex + 1]) {
-			return parseInt(args[portArgIndex + 1], 10);
-		}
-		return null;
-	}
-
-	function getStatusBadge(status?: string, args?: string[]) {
-		const port = args ? getPortFromArgs(args) : null;
+	function getStatusBadge(status?: string, port?: string) {
 		switch (status) {
 			case 'online':
-				return { variant: 'default', class: 'bg-green-400 whitespace-nowrap', label: `Running on port ${port || 'unknown'}` };
+				return {
+					variant: 'default',
+					class: `bg-${port ? 'green' : 'yellow'}-400 whitespace-nowrap`,
+					label: port ? `Running on port ${port}` : `Running on unknown port`
+				};
 			case 'stopping':
 				return { variant: 'default', class: 'bg-yellow-400 whitespace-nowrap', label: 'Stopping' };
 			case 'launching':
@@ -48,7 +43,7 @@
 {#if data}
 	<div class="grid w-full gap-4 py-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
 		{#each data.list as service}
-			{@const statusBadge = getStatusBadge(service.pm2_env?.status, service.pm2_env?.args)}
+			{@const statusBadge = getStatusBadge(service.status, service.port)}
 			<Card.Root class="flex flex-col">
 				<Card.Header>
 					<Card.Title class="line-clamp-1 flex flex-row items-center justify-between gap-8">
@@ -57,24 +52,24 @@
 							{statusBadge.label}
 						</Badge>
 					</Card.Title>
-					<Card.Description class="line-clamp-2 text-ellipsis">{service.pm2_env?.pm_cwd}</Card.Description>
+					<Card.Description class="line-clamp-2 text-ellipsis">{service.pm_cwd}</Card.Description>
 				</Card.Header>
 				<Card.Content>
-					<Badge variant="outline" class="mt-2">CPU: {service.monit?.cpu}%</Badge>
+					<Badge variant="outline" class="mt-2">CPU: {service.cpu}%</Badge>
 					<Badge variant="outline" class="mt-2">
-						{#if service.monit?.memory}
-							Memory: {(service.monit.memory / (1024 * 1024)).toFixed(2)} MB
+						{#if service.memory}
+							Memory: {(service.memory / (1024 * 1024)).toFixed(2)} MB
 						{:else}
 							Memory: undefined
 						{/if}
 					</Badge>
 				</Card.Content>
-				<Card.Footer class="mt-auto flex justify-between border-t p-4 gap-8">
+				<Card.Footer class="mt-auto flex justify-between gap-8 border-t p-4">
 					<p class="text-muted-foreground text-xs">
-						{formatStartTime(service.pm2_env?.pm_uptime)}
-						{#if service?.pm2_env?.unstable_restarts && service.pm2_env.unstable_restarts > 0}
+						{formatStartTime(service.pm_uptime)}
+						{#if service?.unstable_restarts && service.pm2_env.unstable_restarts > 0}
 							<Badge variant="destructive" class="mt-2">
-								Unstable Restarts: {service.pm2_env?.unstable_restarts || 0}
+								Unstable Restarts: {service.unstable_restarts || 0}
 							</Badge>
 						{/if}
 					</p>
@@ -92,4 +87,3 @@
 		{/each}
 	</div>
 {/if}
-<pre>{JSON.stringify(data, null, 3)}</pre>
