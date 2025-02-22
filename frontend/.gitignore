@@ -22,5 +22,6 @@ Thumbs.db
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 
-# Mock nginx
+# Mock server env
 sites-available
+pm2

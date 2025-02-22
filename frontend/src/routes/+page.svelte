@@ -12,7 +12,7 @@
 
 	function getSslDetails(modifiedDate: string) {
 		if (modifiedDate === 'NOT_FOUND') {
-			return { class: '', lastModified: "Not Found", variant: 'destructive'};
+			return { class: '', lastModified: 'Not Found', variant: 'destructive' };
 		}
 		const now = new Date();
 		const lastModified = new Date(modifiedDate);
@@ -20,9 +20,17 @@
 		const oneMonthInMillis = 30 * 24 * 60 * 60 * 1000;
 
 		if (timeDiff < oneMonthInMillis) {
-			return { class: 'bg-green-400', lastModified: lastModified.toLocaleString(), variant: 'default'};
+			return {
+				class: 'bg-green-400',
+				lastModified: lastModified.toLocaleString(),
+				variant: 'default'
+			};
 		} else {
-			return { class: 'bg-yellow-700', lastModified: lastModified.toLocaleString(), variant: 'default' };
+			return {
+				class: 'bg-yellow-700',
+				lastModified: lastModified.toLocaleString(),
+				variant: 'default'
+			};
 		}
 	}
 </script>
@@ -36,31 +44,35 @@
 				<Card.Header>
 					<Card.Title class="line-clamp-1 flex flex-row items-center justify-between gap-8">
 						<span class="truncate">{site.name}</span>
-						<Badge class="bg-green-400">
+						<Badge class="whitespace-nowrap bg-green-400">
 							Proxy Port: {site.proxyPassPort || 'N/A'}
 						</Badge>
 					</Card.Title>
+					<Card.Description>
+						<Button
+							variant="link"
+							href={`https://${site.domain}`}
+							target="_blank"
+							class="text-muted-foreground min-w-0 truncate text-xs p-0 h-auto"
+						>
+							<span class="truncate">{site.domain}</span>
+							<Link class="ml-1 size-2" />
+						</Button>
+					</Card.Description>
 				</Card.Header>
 				<Card.Content>
 					<Badge variant={site.corsAllowed ? 'default' : 'destructive'} class="mt-2">
 						CORS: {site.corsAllowed ? 'Allowed' : 'Not Allowed'}
 					</Badge>
-					<Badge
-						variant={ssl.variant}
-						class={`mt-2 ${ssl.class}`}
-					>
+					<Badge variant={ssl.variant} class={`mt-2 ${ssl.class}`}>
 						SSL: {ssl.lastModified}
 					</Badge>
 				</Card.Content>
-				<Card.Footer class="mt-auto flex justify-between gap-8 border-t p-4">
-					<Button variant="link" href="https://{site.domain}" target="_blank" class="text-muted-foreground text-xs">
-						{site.domain}
-						<Link class="ml-1 size-2" />
-					</Button>
+				<Card.Footer class="mt-auto flex flex-row-reverse justify-between gap-4 border-t p-4">
 					<Dialog.Root>
 						<Dialog.Trigger class={buttonVariants({ variant: 'link' })}>
-							See the file
-							<File class="ml-1 size-4" />
+							Config
+							<File class="ml-1 size-2" />
 						</Dialog.Trigger>
 						<FilePreview file={site.file} filePath={site.filePath} />
 					</Dialog.Root>

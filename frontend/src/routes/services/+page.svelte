@@ -92,3 +92,4 @@
 		{/each}
 	</div>
 {/if}
+<pre>{JSON.stringify(data, null, 3)}</pre>

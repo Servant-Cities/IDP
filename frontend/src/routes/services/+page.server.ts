@@ -22,6 +22,7 @@ export const load: PageLoad = async () => {
 
 	// Transform the list to include only the necessary fields
 	const transformedList = (await list).map((service) => ({
+		service,
 		pid: service.pid,
 		name: service.name,
 		pm2_env: {

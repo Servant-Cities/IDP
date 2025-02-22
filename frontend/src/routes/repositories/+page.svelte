@@ -26,8 +26,8 @@
 </script>
 
 <h2 class="border-b pb-2 text-xl font-semibold tracking-tight transition-colors">Repositories</h2>
-{#if data}
-	<div class="grid w-full gap-4 py-4 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+{#if data.repositories}
+	<div class="grid w-full gap-4 py-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
 		{#each data.repositories as repository}
 			{@const parsed = parseCommitMessage(repository.lastCommitMessage)}
 			<Card.Root class="flex flex-col">
@@ -56,7 +56,7 @@
 				</Card.Content>
 				<Card.Footer class="mt-auto flex justify-between border-t p-4">
 					<Badge>{repository.activeBranch}</Badge>
-					<p>{new Date(repository.lastCommitDate).toLocaleString()}</p>
+					<p class="text-sm">{new Date(repository.lastCommitDate).toLocaleString()}</p>
 				</Card.Footer>
 			</Card.Root>
 		{/each}
