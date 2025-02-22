@@ -40,7 +40,7 @@
 	<div class="grid w-full gap-4 py-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
 		{#each data.sites as site}
 			{@const ssl = getSslDetails(site.sslCertificateLastModified)}
-			<Card.Root class="flex flex-col">
+			<Card.Root class="flex flex-col max-w-sm">
 				<Card.Header>
 					<Card.Title class="line-clamp-1 flex flex-row items-center justify-between gap-8">
 						<span class="truncate">{site.name}</span>

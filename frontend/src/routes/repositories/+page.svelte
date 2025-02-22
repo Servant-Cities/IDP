@@ -25,12 +25,12 @@
 	}
 </script>
 
-<h2 class="border-b pb-2 text-xl font-semibold tracking-tight transition-colors">Repositories</h2>
+<h2 class="border-b w-full pb-2 text-xl font-semibold tracking-tight transition-colors">Repositories</h2>
 {#if data.repositories}
 	<div class="grid w-full gap-4 py-4 sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
 		{#each data.repositories as repository}
 			{@const parsed = parseCommitMessage(repository.lastCommitMessage)}
-			<Card.Root class="flex flex-col">
+			<Card.Root class="flex flex-col max-w-sm">
 				<Card.Header class="my-auto">
 					<Card.Title class="line-clamp-2 text-ellipsis">{repository.name}</Card.Title>
 					<Card.Description class="line-clamp-2 text-ellipsis">{repository.remoteUrl}</Card.Description>
