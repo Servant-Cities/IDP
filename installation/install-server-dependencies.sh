@@ -86,6 +86,9 @@ cd "IDP" || { log_message "\033[0;31m" "Error: Failed to enter IDP directory"; e
 log_message "\033[1;33m" "Giving execution rights to all files in ./installation"
 chmod +x ./installation/* || { log_message "\033[0;31m" "Error: Failed to set execution rights on installation files"; exit 1; }
 
+log_message "\033[1;33m" "Giving execution rights to all files in ./cli"
+chmod +x /cli/*
+
 log_message "\033[1;33m" "Running setup-nginx.sh with email: $LETS_ENCRYPT_EMAIL and domain: $DOMAIN"
 ./installation/setup-nginx.sh --lets-encrypt-email "$LETS_ENCRYPT_EMAIL" --domain "$DOMAIN" || { log_message "\033[0;31m" "Error: setup-nginx.sh failed"; exit 1; }
 
