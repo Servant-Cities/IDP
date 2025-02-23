@@ -13,7 +13,7 @@ curl -L https://raw.githubusercontent.com/Servant-Cities/IDP/main/installation/i
 ### Connect to the web UI
 Assuming you are testing locally or have access to the server, you can get a login token using the IDP's command line interface:
 
-Macos
+MacOS
 ```
 sh cli/generate-login-token.sh --token-dir /tmp/login_tokens
 ```
