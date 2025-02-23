@@ -24,4 +24,5 @@ vite.config.ts.timestamp-*
 
 # Mock server env
 sites-available
+repositories
 pm2
