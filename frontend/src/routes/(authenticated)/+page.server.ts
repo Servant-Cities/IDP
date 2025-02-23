@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path';
 import { env } from '$env/dynamic/private';
 import https from 'https';
-import type { PageLoad } from './$types';
+import type { PageLoad } from '../$types';
 
 const { SITES_AVAILABLE_PATH } = env;
 
