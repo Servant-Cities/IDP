@@ -5,9 +5,11 @@ import type { PageLoad } from './$types';
 function getPort(service: pm2.ProcessDescription): number | null {
 	if (service.pm2_env?.PORT) return service.pm2_env?.PORT;
 
-	const portArgIndex = service.pm2_env?.args.indexOf('--port');
-	if (portArgIndex !== -1 && service.pm2_env?.args[portArgIndex + 1]) {
-		return parseInt(service.pm2_env?.args[portArgIndex + 1], 10);
+	if (service.pm2_env?.args) {
+		const portArgIndex = service.pm2_env?.args.indexOf('--port');
+		if (portArgIndex !== -1 && service.pm2_env?.args[portArgIndex + 1]) {
+			return parseInt(service.pm2_env?.args[portArgIndex + 1], 10);
+		}
 	}
 
 	if (service.pm2_env?.env?.PORT) return service.pm2_env?.env?.PORT;

@@ -41,7 +41,7 @@
 	<Button
 		variant="outline"
 		target="_blank"
-		href="https://github.com/Servant-Cities/rest-api-playground-template"
+		href="https://github.com/Servant-Cities/IDP.git"
 	>
 		GitHub
 	</Button>
