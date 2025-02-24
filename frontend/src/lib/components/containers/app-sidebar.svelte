@@ -1,7 +1,7 @@
 <script lang="ts">
-	import House from 'lucide-svelte/icons/house';
-	import Inbox from 'lucide-svelte/icons/inbox';
-	import Settings from 'lucide-svelte/icons/settings';
+	import Shuffle from 'lucide-svelte/icons/shuffle';
+	import FolderCode from 'lucide-svelte/icons/folder-code';
+	import MonitorCheck from 'lucide-svelte/icons/monitor-check';
 	import * as Sidebar from '$lib/components/ui/sidebar/index.js';
 	import ToggleMode from './toggle-mode.svelte';
 
@@ -10,17 +10,17 @@
 		{
 			title: 'Router',
 			url: '/',
-			icon: House
+			icon: Shuffle
 		},
 		{
 			title: 'Repositories',
 			url: '/repositories',
-			icon: Inbox
+			icon: FolderCode
 		},
 		{
 			title: 'PM2 Services',
 			url: '/services',
-			icon: Settings
+			icon: MonitorCheck
 		}
 	];
 </script>

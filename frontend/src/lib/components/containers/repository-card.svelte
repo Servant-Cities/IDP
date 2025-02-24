@@ -14,6 +14,7 @@
 			lastCommitDate: string;
 			remoteUrl: string | null;
 			activeBranch: string;
+			path: string;
 		};
 	} = $props();
 
@@ -39,7 +40,7 @@
 </script>
 
 <Card.Root class="flex max-w-sm flex-col">
-	<Card.Header class="my-auto">
+	<Card.Header class="mb-auto">
 		<Card.Title class="line-clamp-2 text-ellipsis">{repository.name}</Card.Title>
 		<Card.Description class="line-clamp-2 text-ellipsis">{repository.remoteUrl}</Card.Description>
 	</Card.Header>
