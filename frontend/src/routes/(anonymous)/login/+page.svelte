@@ -1,5 +1,5 @@
 <script lang="ts">
-	import AuthForm from '$lib/components/auth-form.svelte';
+	import AuthForm from '$lib/components/containers/auth-form.svelte';
 
 	let { form } = $props();
 </script>

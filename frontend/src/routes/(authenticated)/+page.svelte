@@ -6,7 +6,7 @@
 	import * as Dialog from '$lib/components/ui/dialog/index.js';
 	import * as Card from '$lib/components/ui/card/index.js';
 	import type { PageProps } from './$types';
-	import FilePreview from '$lib/components/file-preview/file-preview.svelte';
+	import FilePreview from '$lib/components/containers/file-preview/file-preview.svelte';
 
 	let { data }: PageProps = $props();
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ToggleMode from '$lib/components/toggle-mode.svelte';
+	import ToggleMode from '$lib/components/containers/toggle-mode.svelte';
 
 	let { children, data } = $props();
 </script>
