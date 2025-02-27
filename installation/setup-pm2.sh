@@ -25,7 +25,8 @@ module.exports = {
         NODE_ENV: "production",
         PORT: 2024,
         REPOSITORIES_PATH: "$USER_HOME/repositories",
-        SITES_AVAILABLE_PATH: "/etc/nginx/sites-available"
+        SITES_AVAILABLE_PATH: "/etc/nginx/sites-available",
+        SERVICES_PATH: "$USER_HOME/services",
       },
       watch: false,
       instances: 1,

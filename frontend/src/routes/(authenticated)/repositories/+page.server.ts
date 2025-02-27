@@ -19,32 +19,55 @@ interface GitRepositoryInfo {
 
 function getGitRepositoryInfo(repoPath: string): GitRepositoryInfo | null {
 	try {
+
+		if (!fs.existsSync(repoPath)) {
+			console.error(`Repository path does not exist: ${repoPath}`);
+			return null;
+		}
+
+		if (!fs.existsSync(path.join(repoPath, '.git'))) {
+			console.error(`No .git directory found in ${repoPath}. Skipping...`);
+			return null;
+		}
+
 		const name = path.basename(repoPath);
-
-		const lastCommitHash = execSync('git rev-parse HEAD', { cwd: repoPath }).toString().trim();
-
-		const lastCommitMessage = execSync('git log -1 --pretty=%B', { cwd: repoPath })
-			.toString()
-			.trim();
-
-		const lastCommitDate = execSync('git log -1 --pretty=%cd', { cwd: repoPath }).toString().trim();
-
+		let lastCommitHash = 'N/A';
+		let lastCommitMessage = '';
+		let lastCommitDate = 'N/A';
+		let activeBranch = 'N/A';
 		let remoteUrl: string | null = null;
+
+		try {
+			lastCommitHash = execSync('git rev-parse HEAD', { cwd: repoPath }).toString().trim();
+			lastCommitMessage = execSync('git log -1 --pretty=%B', { cwd: repoPath }).toString().trim();
+			lastCommitDate = execSync('git log -1 --pretty=%cd', { cwd: repoPath }).toString().trim();
+			activeBranch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: repoPath }).toString().trim();
+		} catch {
+			console.warn(`No commits found in ${repoPath}. Setting default values.`);
+		}
+
 		try {
 			remoteUrl = execSync('git remote get-url origin', { cwd: repoPath }).toString().trim();
 		} catch {
+			console.warn(`No remote URL found for ${repoPath}`);
 			remoteUrl = null;
 		}
 
-		const activeBranch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: repoPath })
-			.toString()
-			.trim();
-
-		return { name, lastCommitHash, lastCommitMessage, lastCommitDate, remoteUrl, activeBranch, path: repoPath };
-	} catch {
+		return {
+			name,
+			lastCommitHash,
+			lastCommitMessage,
+			lastCommitDate,
+			remoteUrl,
+			activeBranch,
+			path: repoPath
+		};
+	} catch (error) {
+		console.error(`Failed to get Git repository info for ${repoPath}: ${error.message}`);
 		return null;
 	}
 }
+
 
 export const load: PageLoad = () => {
 	try {

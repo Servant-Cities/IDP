@@ -1232,9 +1232,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bits-ui@npm:^1.3.2":
-  version: 1.3.2
-  resolution: "bits-ui@npm:1.3.2"
+"bits-ui@npm:^1.3.4":
+  version: 1.3.4
+  resolution: "bits-ui@npm:1.3.4"
   dependencies:
     "@floating-ui/core": "npm:^1.6.4"
     "@floating-ui/dom": "npm:^1.6.7"
@@ -1245,7 +1245,7 @@ __metadata:
     tabbable: "npm:^6.2.0"
   peerDependencies:
     svelte: ^5.11.0
-  checksum: 10c0/9c3ffe204c2182e93dfa22b766dbfb316963d88e70980c0a1df120312015b66e9a5ea05aa7e6b4b65aefc20f7f7a6e62b3e2992fcb262fc324e19b799aa444b2
+  checksum: 10c0/f99d8ff00cb6b7c00e44d82a5afd2ead42a0664b3502f0f3e4d94444d2569d9ed6f03dd9894bb6699530f052cd0ed126f65187b32581ae4ca569fcb62cdb86eb
   languageName: node
   linkType: hard
 
@@ -2205,7 +2205,7 @@ __metadata:
     "@tailwindcss/typography": "npm:^0.5.16"
     "@types/node": "npm:^22.13.5"
     autoprefixer: "npm:^10.4.20"
-    bits-ui: "npm:^1.3.2"
+    bits-ui: "npm:^1.3.4"
     clsx: "npm:^2.1.1"
     eslint: "npm:^9.18.0"
     eslint-config-prettier: "npm:^10.0.1"
